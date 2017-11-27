@@ -1,11 +1,11 @@
 package com.hellome.constant;
 
-import com.hellome.util.HttpNetUtil;
+import com.hellome.util.IPAddressUtil;
 
 public class Constant {
 	
 	//本地电脑IP
-	public static final String IP_LOCALHOST = HttpNetUtil.getLocalhostIp();
+	public static final String IP_LOCALHOST = IPAddressUtil.getLocalhostIp();
 	//服务器IP
 	public static final String IP_NET = "47.104.26.192";
 	//服务器图片存储路径基准

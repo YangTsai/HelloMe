@@ -2,7 +2,7 @@ package com.hellome.util;
 
 import java.net.InetAddress;
 
-public class HttpNetUtil {
+public class IPAddressUtil {
 
 	/**
 	 * 获取本机IP

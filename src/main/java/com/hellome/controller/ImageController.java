@@ -9,14 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.hellome.model.BaseModel;
+import com.hellome.model.JsonModel;
 import com.hellome.util.FileUtil;
 
 /**
  * 
  * @description imageËé∑ÂèñÂõæÁâá
  * @author hyy
- * @date 2017Âπ?11Êú?23Êó?
+ * @date 2017ÔøΩ?11ÔøΩ?23ÔøΩ?
  */
 
 @Controller
@@ -24,8 +24,8 @@ import com.hellome.util.FileUtil;
 public class ImageController {
 
 	@RequestMapping(value = "getBanner", method = RequestMethod.GET)
-	public @ResponseBody BaseModel getBanner(HttpServletRequest request, Model model) {
-		BaseModel baseModel = new BaseModel();
+	public @ResponseBody JsonModel getBanner(HttpServletRequest request, Model model) {
+		JsonModel baseModel = new JsonModel();
 		List<String>  pathList = FileUtil.getBannerImages();
 		if(pathList !=null && pathList.size()>0) {
 			baseModel.setResult(true);

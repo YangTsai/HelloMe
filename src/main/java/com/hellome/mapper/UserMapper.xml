@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.fkq.student.dao.IUserDao">
+<mapper namespace="com.hellome.dao.IUserDao">
 
 	<!-- 数据库和Model的关系配置 -->
 	<resultMap id="BaseResultMap" type="com.hellome.model.User">
@@ -18,13 +18,16 @@
 	</sql>
 
 	<!-- 根据主键查询相关列 -->
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
-		parameterType="java.lang.String">
-		select
-		<include refid="Base_Column_List" />
-		from user where id = #{id,jdbcType=VARCHAR}
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from user where id = #{id,jdbcType=VARCHAR}
 	</select>
-
+	
+    <!-- 根据手机号密码查询 -->
+	<select id="findUserByLogin" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from user where phone_number = #{phoneNumber}
+		and password = #{password}
+	</select>
+	
 	<!-- 根据主键删除基础列 -->
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from	user where id = #{id,jdbcType=VARCHAR}
@@ -32,8 +35,9 @@
 
 	<!-- 插入一条数据 -->
 	<insert id="addUser" parameterType="com.hellome.model.User">
-		insert into user <include refid="Base_Column_List"/> 
-		values(#{id},#{userName},#{password},#{phoneNumber},#{age},#{address})
+		insert into user (<include refid="Base_Column_List" />)
+		values (#{id,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},
+		#{phoneNumber,jdbcType=VARCHAR},#{age,jdbcType=INTEGER},#{address,jdbcType=VARCHAR})
 	</insert>
 
 	<!-- 通过主键修改一条数据 -->

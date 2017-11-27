@@ -1,6 +1,6 @@
 package com.hellome.model;
 
-public class BaseModel {
+public class JsonModel {
 	private boolean result;
 	private String msg;
 	private Object data;

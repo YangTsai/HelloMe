@@ -1,7 +1,6 @@
 package com.hellome.service;
 
 import com.hellome.model.JsonModel;
-import com.hellome.model.User;
 
 /**
  * 用户服务层
@@ -15,13 +14,16 @@ public interface IUserService {
 
 	/**
 	 * 用户注册
-	 * @param user
+	 * 
+	 * @param phoneNumber手机号
+	 * @param password密码（加密之后）
 	 * @return
 	 */
-	public JsonModel regist(User user);
+	public JsonModel regist(String phoneNumber, String password);
 
 	/**
 	 * 用户登录
+	 * 
 	 * @param phoneNumber
 	 * @param password
 	 * @return
@@ -35,5 +37,19 @@ public interface IUserService {
 	 * @return
 	 */
 	public JsonModel getUserById(String id);
+	
+	/**
+	 * 更新用户密码
+	 * @param phoneNumber
+	 * @return
+	 */
+	public JsonModel updatePwd(String phoneNumber,String password);
 
 }
+
+
+
+
+
+
+

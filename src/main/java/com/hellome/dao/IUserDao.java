@@ -1,18 +1,33 @@
 package com.hellome.dao;
 
 import org.apache.ibatis.annotations.Param;
-
 import com.hellome.model.User;
 
 public interface IUserDao {
 
 	/**
+	 * 检验手机号是否被注册
+	 * 
+	 * @param phoneNumber
+	 * @return 执行结果条数
+	 */
+	public int selectByPhone(@Param("phoneNumber") String phoneNumber);
+
+	/**
+	 * 检验手机号是否被注册
+	 * 
+	 * @param phoneNumber
+	 * @return 用户对象
+	 */
+	public User selectUserByPhone(@Param("phoneNumber") String phoneNumber);
+	
+	/**
 	 * 添加用户（注册）
 	 * 
 	 * @param user
-	 * @return
+	 * @return 执行结果条数
 	 */
-	public boolean addUser(User user);
+	public int insertUser(User user);
 
 	/**
 	 * 用户登录
@@ -21,11 +36,33 @@ public interface IUserDao {
 	 * @param password
 	 * @return
 	 */
-	public User findUserByLogin(@Param("phoneNumber") String phoneNumber, @Param("password") String password);
+	public User selectUserLogin(@Param("phoneNumber") String phoneNumber, @Param("password") String password);
 
-	int deleteByPrimaryKey(String userId);
+	/**
+	 * 删除用户
+	 * @param id
+	 * @return
+	 */
+	int deleteById(@Param("id")String id);
 
-	User selectByPrimaryKey(String id);
+	/**
+	 * 获取用户信息
+	 * @param id = 用户Id
+	 * @return
+	 */
+	User selectById(@Param("id") String id);
 
-	int updateByPrimaryKey(User record);
+	/**
+	 * 更新用户信息
+	 * @param record
+	 * @return
+	 */
+	int updateById(User user);
+	
+	
 }
+
+
+
+
+

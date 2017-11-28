@@ -7,6 +7,7 @@ import com.hellome.dao.IUserDao;
 import com.hellome.model.JsonModel;
 import com.hellome.model.User;
 import com.hellome.service.IUserService;
+import com.hellome.util.UUIDUtil;
 
 @Service("userService")
 public class UserServiceImpl implements IUserService {
@@ -17,12 +18,12 @@ public class UserServiceImpl implements IUserService {
 	public JsonModel getUserById(String id) {
 		// TODO Auto-generated method stub
 		JsonModel model = new JsonModel();
-		User user = userDao.selectByPrimaryKey(id);
-		if(user != null) {
+		User user = userDao.selectById(id);
+		if (user != null) {
 			model.setResult(true);
 			model.setMsg(ConstantStr.user_info_success);
 			model.setData(user);
-		}else {
+		} else {
 			model.setResult(false);
 			model.setMsg(ConstantStr.user_info_fail);
 			model.setData(null);
@@ -31,31 +32,71 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public JsonModel regist(User user) {
+	public JsonModel regist(String phoneNumber, String password) {
 		// TODO Auto-generated method stub
 		JsonModel model = new JsonModel();
-		boolean result = userDao.addUser(user);
-		model.setResult(result);
-		if (result) {
-			model.setMsg(ConstantStr.add_success);
+		// 检查手机号是否被注册
+		int count = userDao.selectByPhone(phoneNumber);
+		if (count <= 0) {
+			User user = new User();
+			user.setId(UUIDUtil.getUUid());
+			// 默认添加手机号为用户名
+			user.setUserName(phoneNumber);
+			user.setPhoneNumber(phoneNumber);
+			user.setPassword(password);
+			// 添加用户数据
+			int insertCount = userDao.insertUser(user);
+			if (insertCount > 0) {
+				model.setMsg(ConstantStr.add_success);
+				model.setResult(true);
+			} else {
+				model.setResult(false);
+				model.setMsg(ConstantStr.add_fail);
+			}
 		} else {
-			model.setMsg(ConstantStr.add_fail);
+			model.setResult(false);
+			model.setMsg(ConstantStr.add_successed);
 		}
-		model.setData(null);
 		return model;
 	}
 
 	@Override
 	public JsonModel login(String phoneNumber, String password) {
 		JsonModel model = new JsonModel();
-		User user = userDao.findUserByLogin(phoneNumber, password);
-		if(user != null) {
+		User user = userDao.selectUserLogin(phoneNumber, password);
+		if (user != null) {
 			model.setResult(true);
 			model.setMsg(ConstantStr.login_success);
 			model.setData(user);
-		}else {
+		} else {
 			model.setResult(false);
 			model.setMsg(ConstantStr.login_fail);
+			model.setData(null);
+		}
+		return model;
+	}
+
+	@Override
+	public JsonModel updatePwd(String phoneNumber, String password) {
+		// TODO Auto-generated method stub
+		JsonModel model = new JsonModel();
+		int count = userDao.selectByPhone(phoneNumber);
+		if (count > 0) {
+			User user = userDao.selectUserByPhone(phoneNumber);
+			user.setPassword(password);
+			int updateCount = userDao.updateById(user);
+			if (updateCount > 0) {
+				model.setResult(true);
+				model.setMsg(ConstantStr.update_pwd_success);
+				model.setData(user);
+			} else {
+				model.setResult(false);
+				model.setMsg(ConstantStr.update_pwd_fail);
+				model.setData(user);
+			}
+		} else {
+			model.setResult(false);
+			model.setMsg(ConstantStr.user_no_register);
 			model.setData(null);
 		}
 		return model;

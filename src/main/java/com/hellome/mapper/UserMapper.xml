@@ -14,41 +14,66 @@
 
 	<!-- 查询的具体列 -->
 	<sql id="Base_Column_List">
-		 id,user_name, password, phone_number,age,address
+		id,user_name, password, phone_number,age,address
 	</sql>
 
 	<!-- 根据主键查询相关列 -->
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select * from user where id = #{id,jdbcType=VARCHAR}
 	</select>
-	
-    <!-- 根据手机号密码查询 -->
-	<select id="findUserByLogin" resultMap="BaseResultMap" parameterType="java.lang.String">
+
+	<!-- 根据手机号查询结果数 -->
+	<select id="selectByPhone" resultType="int" parameterType="java.lang.String">
+		select count(1) from user where phone_number =
+		#{phoneNumber,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 根据手机号查询对象 -->
+	<select id="selectUserByPhone" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select * from user where phone_number = #{phoneNumber}
+	</select>
+
+	<!-- 根据手机号密码查询 -->
+	<select id="selectUserLogin" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
 		select * from user where phone_number = #{phoneNumber}
 		and password = #{password}
 	</select>
-	
+
 	<!-- 根据主键删除基础列 -->
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-		delete from	user where id = #{id,jdbcType=VARCHAR}
+	<delete id="deleteById" parameterType="java.lang.String">
+		delete from user
+		where id =
+		#{id,jdbcType=VARCHAR}
 	</delete>
 
 	<!-- 插入一条数据 -->
-	<insert id="addUser" parameterType="com.hellome.model.User">
-		insert into user (<include refid="Base_Column_List" />)
-		values (#{id,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},
+	<insert id="insertUser" parameterType="com.hellome.model.User">
+		insert into user (
+		<include refid="Base_Column_List" />
+		)
+		values
+		(#{id,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},
 		#{phoneNumber,jdbcType=VARCHAR},#{age,jdbcType=INTEGER},#{address,jdbcType=VARCHAR})
 	</insert>
 
 	<!-- 通过主键修改一条数据 -->
-	<update id="updateByPrimaryKey" parameterType="com.hellome.model.User">
-		update user	
-		set user_name = #{userName,jdbcType=VARCHAR},
-		password =	#{password,jdbcType=VARCHAR},
-		phone_number =	#{phoneNumber,jdbcType=VARCHAR},
-		age =	#{age,jdbcType=INTEGER},
-		address =	#{address,jdbcType=VARCHAR},
-		where id = #{id,jdbcType=VARCHAR}
+	<update id="updateById" parameterType="com.hellome.model.User">
+		update user set
+		user_name =
+		#{userName,jdbcType=VARCHAR},
+		password =
+		#{password,jdbcType=VARCHAR},
+		phone_number =
+		#{phoneNumber,jdbcType=VARCHAR},
+		age =
+		#{age,jdbcType=INTEGER},
+		address
+		= #{address,jdbcType=VARCHAR}
+		where id
+		=
+		#{id,jdbcType=VARCHAR}
 	</update>
 
 </mapper>

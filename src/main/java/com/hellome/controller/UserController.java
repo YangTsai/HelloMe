@@ -35,17 +35,13 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public @ResponseBody JsonModel regist(@RequestParam(value = "phoneNumber") String phoneNumber,
-			@RequestParam(value = "password") String password) throws Exception{
-		User user = new User();
-		user.setId(UUIDUtil.getUUid());
-		user.setUserName(phoneNumber);
-		user.setPhoneNumber(phoneNumber);
-		user.setPassword(password);
-		return userService.regist(user);
+			@RequestParam(value = "password") String password) throws Exception {
+		return userService.regist(phoneNumber, password);
 	}
 
 	/**
 	 * 用户登录
+	 * 
 	 * @param phoneNumber
 	 * @param password
 	 * @return
@@ -53,18 +49,31 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public @ResponseBody JsonModel login(@RequestParam(value = "phoneNumber") String phoneNumber,
-			@RequestParam(value = "password") String password) throws Exception{
+			@RequestParam(value = "password") String password) throws Exception {
 		return userService.login(phoneNumber, password);
 	}
-	
+
 	/**
 	 * 获取用户信息
-	 * @param 
+	 * 
+	 * @param
 	 * @return
 	 */
 	@RequestMapping(value = "/getUser", method = RequestMethod.GET)
-	public @ResponseBody JsonModel getUser(@RequestParam("id") String id, Model model) {
+	public @ResponseBody JsonModel getUser(@RequestParam("id") String id) {
 		return userService.getUserById(id);
+	}
+
+	/**
+	 * 更新用户密码
+	 * 
+	 * @param
+	 * @return
+	 */
+	@RequestMapping(value = "/updatePwd", method = RequestMethod.POST)
+	public @ResponseBody JsonModel updatePwd(@RequestParam(value = "phoneNumber") String phoneNumber,
+			@RequestParam(value = "password") String password) {
+		return userService.updatePwd(phoneNumber, password);
 	}
 
 }

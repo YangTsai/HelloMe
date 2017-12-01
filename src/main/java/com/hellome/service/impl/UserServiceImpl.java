@@ -9,6 +9,7 @@ import com.hellome.dao.IUserDao;
 import com.hellome.model.JsonModel;
 import com.hellome.model.User;
 import com.hellome.service.IUserService;
+import com.hellome.util.DateUtil;
 import com.hellome.util.UUIDUtil;
 
 @Service("userService")
@@ -46,8 +47,8 @@ public class UserServiceImpl implements IUserService {
 			user.setUserName(phoneNumber);
 			user.setPhoneNumber(phoneNumber);
 			user.setPassword(password);
-			user.setCreateDate(new Date());
-			user.setUpdateDate(new Date());
+			user.setCreateDate(DateUtil.getCurrentDate());
+			user.setUpdateDate(DateUtil.getCurrentDate());
 			// 添加用户数据
 			int insertCount = userDao.insertUser(user);
 			if (insertCount > 0) {

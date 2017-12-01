@@ -1,17 +1,17 @@
 package com.hellome.model;
 
+import java.util.Date;
+
 public class User {
-    private String id;
-
-    private String userName;
-
-    private String password;
-    
-    private String phoneNumber;
-
-    private Integer age;
-    
-    private String address;
+	private String id;
+	private String userName;
+	private String password;
+	private String phoneNumber;
+	private String headUrl;
+	private Integer age;
+	private String address;
+	private Date createDate;
+	private Date updateDate;
 
 	public String getId() {
 		return id;
@@ -59,6 +59,30 @@ public class User {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getHeadUrl() {
+		return headUrl;
+	}
+
+	public void setHeadUrl(String headUrl) {
+		this.headUrl = headUrl;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 
 }

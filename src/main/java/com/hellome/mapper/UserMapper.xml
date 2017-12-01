@@ -8,37 +8,29 @@
 		<result column="user_name" property="userName" jdbcType="VARCHAR" />
 		<result column="password" property="password" jdbcType="VARCHAR" />
 		<result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+		<result column="head_url" property="headUrl" jdbcType="VARCHAR" />
 		<result column="age" property="age" jdbcType="INTEGER" />
 		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="DATE" />
+		<result column="update_date" property="updateDate" jdbcType="DATE" />
 	</resultMap>
 
 	<!-- 查询的具体列 -->
 	<sql id="Base_Column_List">
-		id,user_name, password, phone_number,age,address
+		id,user_name, password,
+		phone_number,head_url,age,address,create_date,update_date
 	</sql>
 
-	<!-- 根据主键查询相关列 -->
-	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
-		select * from user where id = #{id,jdbcType=VARCHAR}
-	</select>
-
-	<!-- 根据手机号查询结果数 -->
-	<select id="selectByPhone" resultType="int" parameterType="java.lang.String">
-		select count(1) from user where phone_number =
-		#{phoneNumber,jdbcType=VARCHAR}
+	<!-- 根据ID查询对象 -->
+	<select id="selectUserById" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select * from user where id = #{id}
 	</select>
 
 	<!-- 根据手机号查询对象 -->
 	<select id="selectUserByPhone" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
 		select * from user where phone_number = #{phoneNumber}
-	</select>
-
-	<!-- 根据手机号密码查询 -->
-	<select id="selectUserLogin" resultMap="BaseResultMap"
-		parameterType="java.lang.String">
-		select * from user where phone_number = #{phoneNumber}
-		and password = #{password}
 	</select>
 
 	<!-- 根据主键删除基础列 -->
@@ -55,7 +47,8 @@
 		)
 		values
 		(#{id,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},
-		#{phoneNumber,jdbcType=VARCHAR},#{age,jdbcType=INTEGER},#{address,jdbcType=VARCHAR})
+		#{phoneNumber,jdbcType=VARCHAR},#{headUrl,jdbcType=VARCHAR},#{age,jdbcType=INTEGER},
+		#{address,jdbcType=VARCHAR},#{createDate,jdbcType=DATE},#{updateDate,jdbcType=DATE})
 	</insert>
 
 	<!-- 通过主键修改一条数据 -->
@@ -67,10 +60,19 @@
 		#{password,jdbcType=VARCHAR},
 		phone_number =
 		#{phoneNumber,jdbcType=VARCHAR},
+		head_url =
+		#{headUrl,jdbcType=VARCHAR},
 		age =
 		#{age,jdbcType=INTEGER},
 		address
-		= #{address,jdbcType=VARCHAR}
+		=
+		#{address,jdbcType=VARCHAR},
+		create_date
+		=
+		#{createDate,jdbcType=VARCHAR},
+		update_date
+		=
+		#{updateDate,jdbcType=VARCHAR}
 		where id
 		=
 		#{id,jdbcType=VARCHAR}

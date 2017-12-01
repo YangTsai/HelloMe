@@ -6,21 +6,21 @@ import com.hellome.model.User;
 public interface IUserDao {
 
 	/**
-	 * 检验手机号是否被注册
+	 * 通过Id获取用户信息
 	 * 
-	 * @param phoneNumber
-	 * @return 执行结果条数
+	 * @param 用户Id
+	 * @return 用户对象
 	 */
-	public int selectByPhone(@Param("phoneNumber") String phoneNumber);
+	public User selectUserById(@Param("id") String id);
 
 	/**
-	 * 检验手机号是否被注册
+	 * 通过手机号获取用户信息
 	 * 
 	 * @param phoneNumber
 	 * @return 用户对象
 	 */
 	public User selectUserByPhone(@Param("phoneNumber") String phoneNumber);
-	
+
 	/**
 	 * 添加用户（注册）
 	 * 
@@ -30,39 +30,19 @@ public interface IUserDao {
 	public int insertUser(User user);
 
 	/**
-	 * 用户登录
+	 * 通过Id删除用户
 	 * 
-	 * @param phoneNum
-	 * @param password
-	 * @return
-	 */
-	public User selectUserLogin(@Param("phoneNumber") String phoneNumber, @Param("password") String password);
-
-	/**
-	 * 删除用户
 	 * @param id
 	 * @return
 	 */
-	int deleteById(@Param("id")String id);
+	public int deleteById(@Param("id") String id);
 
 	/**
-	 * 获取用户信息
-	 * @param id = 用户Id
+	 * 通过Id更新用户信息
+	 * 
+	 * @param user更新的用户对象信息
 	 * @return
 	 */
-	User selectById(@Param("id") String id);
+	public int updateById(User user);
 
-	/**
-	 * 更新用户信息
-	 * @param record
-	 * @return
-	 */
-	int updateById(User user);
-	
-	
 }
-
-
-
-
-

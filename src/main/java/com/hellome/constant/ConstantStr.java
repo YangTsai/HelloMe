@@ -10,6 +10,7 @@ public class ConstantStr {
 	public final static String user_info_success = "获取用户信息成功";
 	public final static String user_info_fail = "获取用户信息失败";
 	public final static String user_no_register = "该手机号没有注册";
+	public final static String pwd_error = "密码错误";
 	public final static String update_pwd_success = "修改密码成功";
 	public final static String update_pwd_fail = "修改密码失败";
 }

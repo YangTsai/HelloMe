@@ -1,5 +1,7 @@
 package com.hellome.service.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.hellome.constant.ConstantStr;
@@ -18,7 +20,7 @@ public class UserServiceImpl implements IUserService {
 	public JsonModel getUserById(String id) {
 		// TODO Auto-generated method stub
 		JsonModel model = new JsonModel();
-		User user = userDao.selectById(id);
+		User user = userDao.selectUserById(id);
 		if (user != null) {
 			model.setResult(true);
 			model.setMsg(ConstantStr.user_info_success);
@@ -36,14 +38,16 @@ public class UserServiceImpl implements IUserService {
 		// TODO Auto-generated method stub
 		JsonModel model = new JsonModel();
 		// 检查手机号是否被注册
-		int count = userDao.selectByPhone(phoneNumber);
-		if (count <= 0) {
-			User user = new User();
+		User user = userDao.selectUserByPhone(phoneNumber);
+		if (user == null) {
+			user = new User();
 			user.setId(UUIDUtil.getUUid());
 			// 默认添加手机号为用户名
 			user.setUserName(phoneNumber);
 			user.setPhoneNumber(phoneNumber);
 			user.setPassword(password);
+			user.setCreateDate(new Date());
+			user.setUpdateDate(new Date());
 			// 添加用户数据
 			int insertCount = userDao.insertUser(user);
 			if (insertCount > 0) {
@@ -63,15 +67,20 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public JsonModel login(String phoneNumber, String password) {
 		JsonModel model = new JsonModel();
-		User user = userDao.selectUserLogin(phoneNumber, password);
-		if (user != null) {
-			model.setResult(true);
-			model.setMsg(ConstantStr.login_success);
-			model.setData(user);
-		} else {
+		User user = userDao.selectUserByPhone(phoneNumber);
+		if (user == null) {
 			model.setResult(false);
-			model.setMsg(ConstantStr.login_fail);
-			model.setData(null);
+			model.setMsg(ConstantStr.user_no_register);
+		} else {
+			if (!password.equals(user.getPassword())) {
+				model.setResult(false);
+				model.setMsg(ConstantStr.pwd_error);
+			} else {
+				model.setResult(true);
+				model.setMsg(ConstantStr.login_success);
+				model.setData(user);
+			}
+
 		}
 		return model;
 	}
@@ -80,9 +89,8 @@ public class UserServiceImpl implements IUserService {
 	public JsonModel updatePwd(String phoneNumber, String password) {
 		// TODO Auto-generated method stub
 		JsonModel model = new JsonModel();
-		int count = userDao.selectByPhone(phoneNumber);
-		if (count > 0) {
-			User user = userDao.selectUserByPhone(phoneNumber);
+		User user = userDao.selectUserByPhone(phoneNumber);
+		if (user != null) {
 			user.setPassword(password);
 			int updateCount = userDao.updateById(user);
 			if (updateCount > 0) {
@@ -97,7 +105,6 @@ public class UserServiceImpl implements IUserService {
 		} else {
 			model.setResult(false);
 			model.setMsg(ConstantStr.user_no_register);
-			model.setData(null);
 		}
 		return model;
 	}

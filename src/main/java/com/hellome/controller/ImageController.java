@@ -14,16 +14,16 @@ import com.hellome.util.FileUtil;
 
 /**
  * 
- * @description image获取图片
+ * @description 图片相关接口
  * @author hyy
- * @date 2017�?11�?23�?
+ * @date 2017年12月4日
  */
 
 @Controller
-@RequestMapping("/image/")
+@RequestMapping("/images")
 public class ImageController {
 
-	@RequestMapping(value = "getBanner", method = RequestMethod.GET)
+	@RequestMapping(value = "/getBanner", method = RequestMethod.GET)
 	public @ResponseBody JsonModel getBanner(HttpServletRequest request, Model model) {
 		JsonModel baseModel = new JsonModel();
 		List<String>  pathList = FileUtil.getBannerImages();
@@ -34,7 +34,7 @@ public class ImageController {
 			baseModel.setResult(false);
 			baseModel.setMsg("没有图片");
 		}
-		baseModel.setData(FileUtil.getBannerImages());
+		baseModel.setData(pathList);
 		return baseModel;
 	}
 }

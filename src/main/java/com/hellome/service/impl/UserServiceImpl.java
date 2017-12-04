@@ -3,6 +3,8 @@ package com.hellome.service.impl;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.hellome.constant.Constant;
 import com.hellome.constant.ConstantStr;
 import com.hellome.dao.IUserDao;
 import com.hellome.model.JsonModel;
@@ -23,6 +25,7 @@ public class UserServiceImpl implements IUserService {
 		if (user != null) {
 			model.setResult(true);
 			model.setMsg(ConstantStr.user_info_success);
+			user.setHeadUrl(Constant.HEAD_PATH + user.getHeadUrl());
 			model.setData(user);
 		} else {
 			model.setResult(false);

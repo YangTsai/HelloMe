@@ -11,8 +11,8 @@
 		<result column="head_url" property="headUrl" jdbcType="VARCHAR" />
 		<result column="age" property="age" jdbcType="INTEGER" />
 		<result column="address" property="address" jdbcType="VARCHAR" />
-		<result column="create_date" property="createDate" jdbcType="DATE" />
-		<result column="update_date" property="updateDate" jdbcType="DATE" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
 	</resultMap>
 
 	<!-- 查询的具体列 -->
@@ -48,7 +48,7 @@
 		values
 		(#{id,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},
 		#{phoneNumber,jdbcType=VARCHAR},#{headUrl,jdbcType=VARCHAR},#{age,jdbcType=INTEGER},
-		#{address,jdbcType=VARCHAR},#{createDate,jdbcType=DATE},#{updateDate,jdbcType=DATE})
+		#{address,jdbcType=VARCHAR},#{createDate,jdbcType=TIMESTAMP},#{updateDate,jdbcType=TIMESTAMP})
 	</insert>
 
 	<!-- 通过主键修改一条数据 -->

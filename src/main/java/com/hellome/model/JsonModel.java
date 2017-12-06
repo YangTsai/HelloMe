@@ -1,5 +1,5 @@
 package com.hellome.model;
-
+ 
 public class JsonModel {
 	private boolean result;
 	private String msg;

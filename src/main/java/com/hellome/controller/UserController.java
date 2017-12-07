@@ -1,17 +1,12 @@
 package com.hellome.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.RestController;
 import com.hellome.pojo.JsonModel;
-import com.hellome.pojo.User;
 import com.hellome.service.IUserService;
-import com.hellome.util.UUIDUtil;
 
 /**
  * 
@@ -20,7 +15,7 @@ import com.hellome.util.UUIDUtil;
  * @date 2017年11月27日
  */
 
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
 
@@ -35,7 +30,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public @ResponseBody JsonModel regist(@RequestParam(value = "phoneNumber") String phoneNumber,
+	public JsonModel regist(@RequestParam(value = "phoneNumber") String phoneNumber,
 			@RequestParam(value = "password") String password) throws Exception {
 		return userService.regist(phoneNumber, password);
 	}
@@ -49,7 +44,7 @@ public class UserController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public @ResponseBody JsonModel login(@RequestParam(value = "phoneNumber") String phoneNumber,
+	public JsonModel login(@RequestParam(value = "phoneNumber") String phoneNumber,
 			@RequestParam(value = "password") String password) throws Exception {
 		return userService.login(phoneNumber, password);
 	}
@@ -61,7 +56,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/getUser", method = RequestMethod.GET)
-	public @ResponseBody JsonModel getUser(@RequestParam("id") String id) {
+	public JsonModel getUser(@RequestParam("id") String id) {
 		return userService.getUserById(id);
 	}
 
@@ -72,7 +67,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/updatePwd", method = RequestMethod.POST)
-	public @ResponseBody JsonModel updatePwd(@RequestParam(value = "phoneNumber") String phoneNumber,
+	public JsonModel updatePwd(@RequestParam(value = "phoneNumber") String phoneNumber,
 			@RequestParam(value = "password") String password) {
 		return userService.updatePwd(phoneNumber, password);
 	}

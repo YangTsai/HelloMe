@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import com.hellome.constant.Constant;
 import com.hellome.constant.ConstantStr;
 import com.hellome.dao.IUserDao;
-import com.hellome.model.JsonModel;
-import com.hellome.model.User;
+import com.hellome.pojo.JsonModel;
+import com.hellome.pojo.User;
 import com.hellome.service.IUserService;
 import com.hellome.util.UUIDUtil;
 
@@ -48,9 +48,8 @@ public class UserServiceImpl implements IUserService {
 			user.setUserName(phoneNumber);
 			user.setPhoneNumber(phoneNumber);
 			user.setPassword(password);
-			user.setCreateDate(user.getCreateDate());
-//			user.setCreateDate(new Date());
-//			user.setUpdateDate(new Date());
+			user.setCreateDate(new Date());
+			user.setUpdateDate(new Date());
 			// 添加用户数据
 			int insertCount = userDao.insertUser(user);
 			if (insertCount > 0) {

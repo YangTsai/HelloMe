@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.hellome.model.JsonModel;
-import com.hellome.model.User;
+
+import com.hellome.pojo.JsonModel;
+import com.hellome.pojo.User;
 import com.hellome.service.IUserService;
 import com.hellome.util.UUIDUtil;
 

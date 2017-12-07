@@ -1,7 +1,8 @@
 package com.hellome.dao;
 
 import org.apache.ibatis.annotations.Param;
-import com.hellome.model.User;
+
+import com.hellome.pojo.User;
 
 public interface IUserDao {
 

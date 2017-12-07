@@ -3,7 +3,7 @@
 <mapper namespace="com.hellome.dao.IUserDao">
 
 	<!-- 数据库和Model的关系配置 -->
-	<resultMap id="BaseResultMap" type="com.hellome.model.User">
+	<resultMap id="BaseResultMap" type="com.hellome.pojo.User">
 		<id column="id" property="id" jdbcType="VARCHAR" />
 		<result column="user_name" property="userName" jdbcType="VARCHAR" />
 		<result column="password" property="password" jdbcType="VARCHAR" />
@@ -41,7 +41,7 @@
 	</delete>
 
 	<!-- 插入一条数据 -->
-	<insert id="insertUser" parameterType="com.hellome.model.User">
+	<insert id="insertUser" parameterType="com.hellome.pojo.User">
 		insert into user (
 		<include refid="Base_Column_List" />
 		)
@@ -52,7 +52,7 @@
 	</insert>
 
 	<!-- 通过主键修改一条数据 -->
-	<update id="updateById" parameterType="com.hellome.model.User">
+	<update id="updateById" parameterType="com.hellome.pojo.User">
 		update user set
 		user_name =
 		#{userName,jdbcType=VARCHAR},

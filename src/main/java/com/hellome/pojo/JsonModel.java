@@ -1,4 +1,4 @@
-package com.hellome.model;
+package com.hellome.pojo;
  
 public class JsonModel {
 	private boolean result;

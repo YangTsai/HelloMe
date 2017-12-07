@@ -1,6 +1,6 @@
 package com.hellome.service;
 
-import com.hellome.model.JsonModel;
+import com.hellome.pojo.JsonModel;
 
 /**
  * 用户服务层

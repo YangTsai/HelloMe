@@ -13,6 +13,14 @@ import com.hellome.pojo.JsonModel;
 public interface IUserService {
 
 	/**
+	 * 检测手机号是否注册
+	 * 
+	 * @param phoneNumber
+	 * @return 是否注册
+	 */
+	public boolean checkPhoneNumber(String phoneNumber);
+
+	/**
 	 * 用户注册
 	 * 
 	 * @param phoneNumber手机号
@@ -37,19 +45,13 @@ public interface IUserService {
 	 * @return
 	 */
 	public JsonModel getUserById(String id);
-	
+
 	/**
 	 * 更新用户密码
+	 * 
 	 * @param phoneNumber
 	 * @return
 	 */
-	public JsonModel updatePwd(String phoneNumber,String password);
+	public JsonModel updatePwd(String phoneNumber, String password);
 
 }
-
-
-
-
-
-
-

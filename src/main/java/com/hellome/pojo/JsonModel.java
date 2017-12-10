@@ -1,9 +1,9 @@
 package com.hellome.pojo;
- 
+
 public class JsonModel {
-	private boolean result;
-	private String msg;
-	private Object data;
+	private boolean result = false;
+	private String msg = "未知错误";
+	private Object data = null;
 
 	public boolean getResult() {
 		return result;

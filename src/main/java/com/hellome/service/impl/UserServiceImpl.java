@@ -108,18 +108,15 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public JsonModel updatePwd(String phoneNumber, String password) {
+	public JsonModel updateUser(User user) {
 		// TODO Auto-generated method stub
 		JsonModel model = new JsonModel();
-		if (checkPhoneNumber(phoneNumber)) {
-			UserExample example = new UserExample();
-			Criteria criteria = example.createCriteria();
-			criteria.andPhoneNumberEqualTo(phoneNumber);
-			List<User> list = userMapper.selectByExample(example);
-			User user = list.get(0);
-			user.setPassword(password);
-			int result = userMapper.updateByPrimaryKey(user);
-			if (result == 0) {
+		if (user == null) {
+			return model;
+		} else if (user.getId() != null) {
+			// 更新用户其他信息
+			int count = userMapper.updateByPrimaryKeySelective(user);
+			if (count > 0) {
 				model.setResult(true);
 				model.setMsg(ConstantStr.update_pwd_success);
 				model.setData(user);
@@ -128,9 +125,27 @@ public class UserServiceImpl implements IUserService {
 				model.setMsg(ConstantStr.update_pwd_fail);
 				model.setData(user);
 			}
-		} else {
-			model.setResult(false);
-			model.setMsg(ConstantStr.user_no_register);
+		} else if (user.getPhoneNumber() != null) {
+			// 更新用户密码
+			String phoneNumber = user.getPhoneNumber();
+			if (checkPhoneNumber(phoneNumber)) {
+				UserExample example = new UserExample();
+				Criteria criteria = example.createCriteria();
+				criteria.andPhoneNumberEqualTo(phoneNumber);
+				int count = userMapper.updateByExampleSelective(user, example);
+				if (count > 0) {
+					model.setResult(true);
+					model.setMsg(ConstantStr.update_pwd_success);
+					model.setData(user);
+				} else {
+					model.setResult(false);
+					model.setMsg(ConstantStr.update_pwd_fail);
+					model.setData(user);
+				}
+			} else {
+				model.setResult(false);
+				model.setMsg(ConstantStr.user_no_register);
+			}
 		}
 		return model;
 	}

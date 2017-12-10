@@ -1,6 +1,7 @@
 package com.hellome.service;
 
 import com.hellome.pojo.JsonModel;
+import com.hellome.pojo.User;
 
 /**
  * 用户服务层
@@ -46,12 +47,13 @@ public interface IUserService {
 	 */
 	public JsonModel getUserById(String id);
 
+
 	/**
-	 * 更新用户密码
+	 * 更新用户其他信息
 	 * 
-	 * @param phoneNumber
+	 * @param user
 	 * @return
 	 */
-	public JsonModel updatePwd(String phoneNumber, String password);
+	public JsonModel updateUser(User user);
 
 }

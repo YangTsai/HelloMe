@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.hellome.pojo.JsonModel;
+import com.hellome.pojo.User;
 import com.hellome.service.IUserService;
 
 /**
@@ -52,24 +53,23 @@ public class UserController {
 	/**
 	 * 获取用户信息
 	 * 
-	 * @param
+	 * @parami
 	 * @return
 	 */
 	@RequestMapping(value = "/getUser", method = RequestMethod.GET)
 	public JsonModel getUser(@RequestParam("id") String id) {
 		return userService.getUserById(id);
 	}
-
+	
 	/**
-	 * 更新用户密码
+	 * 更新用户信息
 	 * 
 	 * @param
 	 * @return
 	 */
-	@RequestMapping(value = "/updatePwd", method = RequestMethod.POST)
-	public JsonModel updatePwd(@RequestParam(value = "phoneNumber") String phoneNumber,
-			@RequestParam(value = "password") String password) {
-		return userService.updatePwd(phoneNumber, password);
+	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+	public JsonModel updateUser(User user) {
+		return userService.updateUser(user);
 	}
 
 }

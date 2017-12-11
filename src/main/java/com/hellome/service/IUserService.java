@@ -37,7 +37,7 @@ public interface IUserService {
 	 * @param password
 	 * @return
 	 */
-	public JsonModel login(String phoneNumber, String password);
+	public User login(String phoneNumber, String password);
 
 	/**
 	 * 通过Id获取User对象
@@ -45,7 +45,7 @@ public interface IUserService {
 	 * @param id
 	 * @return
 	 */
-	public JsonModel getUserById(String id);
+	public User getUserById(String id);
 
 
 	/**
@@ -54,6 +54,6 @@ public interface IUserService {
 	 * @param user
 	 * @return
 	 */
-	public JsonModel updateUser(User user);
+	public int updateUser(User user);
 
 }
